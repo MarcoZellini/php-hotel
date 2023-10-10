@@ -54,6 +54,8 @@ $hotels = [
 
 ];
 
+var_dump($_GET);
+
 ?>
 
 <!DOCTYPE html>
@@ -77,25 +79,25 @@ $hotels = [
             <div class="input d-flex align-items-center gap-3">
 
                 <select class="form-select form-select" name="vote" id="">
-                    <option selected disabled>Filtra per Voto..</option>
-                    <option value="1">1 Stella</option>
-                    <option value="2">2 Stelle</option>
-                    <option value="3">3 Stelle</option>
-                    <option value="4">4 Stelle</option>
-                    <option value="5">5 Stelle</option>
+                    <option value="" <?= !isset($_GET['vote']) || $_GET['vote'] === '' ? 'selected' : ''; ?>>Filtra per Voto..</option>
+                    <option value="1" <?= isset($_GET['vote']) && $_GET['vote'] === '1' ? 'selected' : ''; ?>>1 Stella</option>
+                    <option value="2" <?= isset($_GET['vote']) && $_GET['vote'] === '2' ? 'selected' : ''; ?>>2 Stelle</option>
+                    <option value="3" <?= isset($_GET['vote']) && $_GET['vote'] === '3' ? 'selected' : ''; ?>>3 Stelle</option>
+                    <option value="4" <?= isset($_GET['vote']) && $_GET['vote'] === '4' ? 'selected' : ''; ?>>4 Stelle</option>
+                    <option value="5" <?= isset($_GET['vote']) && $_GET['vote'] === '5' ? 'selected' : ''; ?>>5 Stelle</option>
                 </select>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="true" name="parking">
+                    <input class="form-check-input" type="checkbox" value="true" name="parking" <?= $_GET['parking'] ? 'checked' : ''; ?>>
                     <label class="form-check-label">Parcheggio</label>
                 </div>
             </div>
 
 
-            <?php /* echo $_GET['parking'] ? 'checked' : ''; */ ?>
+
 
             <div class="buttons">
-                <button type="reset" class="btn btn-danger">Reset Filtri</button>
+                <!-- <button type="reset" class="btn btn-danger">Reset Filtri</button> -->
                 <button type="submit" class="btn btn-primary">Filtra</button>
             </div>
 
