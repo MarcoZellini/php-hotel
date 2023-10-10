@@ -54,7 +54,6 @@ $hotels = [
 
 ];
 
-//var_dump($_GET);
 ?>
 
 <!DOCTYPE html>
@@ -71,17 +70,39 @@ $hotels = [
 
 <body>
 
-    <div class="container my-5 text-center">
+    <div class="container my-5">
 
-        <form>
-            <input type="checkbox" name="parking" value="true"><label for="">Parcheggio</label>
-            <button type="submit" class="btn btn-primary">Filtra</button>
+        <form class="d-flex flex-column justify-content-center align-items-center gap-3">
+
+            <div class="input d-flex align-items-center gap-3">
+
+                <select class="form-select form-select" name="vote" id="">
+                    <option selected disabled>Filtra per Voto..</option>
+                    <option value="1">1 Stella</option>
+                    <option value="2">2 Stelle</option>
+                    <option value="3">3 Stelle</option>
+                    <option value="4">4 Stelle</option>
+                    <option value="5">5 Stelle</option>
+                </select>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="true" name="parking">
+                    <label class="form-check-label">Parcheggio</label>
+                </div>
+            </div>
+
+
+            <?php /* echo $_GET['parking'] ? 'checked' : ''; */ ?>
+
+            <div class="buttons">
+                <button type="reset" class="btn btn-danger">Reset Filtri</button>
+                <button type="submit" class="btn btn-primary">Filtra</button>
+            </div>
+
         </form>
 
-
-
-        <h1 class="pb-3">Hotels Table</h1>
-        <table class="m-auto">
+        <h1 class="py-3 text-center">Hotels Table</h1>
+        <table class="m-auto text-center">
             <tr>
                 <?php foreach ($hotels[0] as $key => $value) : ?>
                     <th class="border border-dark p-2"><?= ucfirst($key) ?></th>
@@ -90,19 +111,27 @@ $hotels = [
 
             <?php
 
-            $filteredHotels = array_filter($hotels, function ($var) {
-                if ($_GET['parking']) {
-                    return $var['parking'];
-                } else {
-                    return $var;
-                }
-            }, ARRAY_FILTER_USE_BOTH);
+            if (isset($_GET['parking'])) {
+                $hotels = array_filter($hotels, function ($var) {
 
-            //var_dump($filteredHotels);
+                    if ($_GET['parking']) {
+                        return $var['parking'];
+                    }
+                }, ARRAY_FILTER_USE_BOTH);
+            }
+
+            if (isset($_GET['vote'])) {
+                $hotels = array_filter($hotels, function ($var) {
+                    if ($var['vote'] >= $_GET['vote']) {
+                        return $var['vote'];
+                    }
+                }, ARRAY_FILTER_USE_BOTH);
+            }
+
 
             ?>
 
-            <?php foreach ($filteredHotels as $hotel) : ?>
+            <?php foreach ($hotels as $hotel) : ?>
 
                 <tr>
                     <?php foreach ($hotel as $key => $value) : ?>
