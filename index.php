@@ -5,6 +5,7 @@
         Stampare tutti i nostri hotel con tutti i dati disponibili.
 
         Iniziate in modo graduale. Prima stampate in pagina i dati, senza preoccuparvi dello stile. Dopo aggiungete Bootstrap e mostrate le informazioni con una tabella.
+        
         Bonus:
         Aggiungere un form ad inizio pagina che tramite una richiesta GET permetta di filtrare gli hotel che hanno un parcheggio.
         Aggiungere un secondo campo al form che permetta di filtrare gli hotel per voto (es. inserisco 3 ed ottengo tutti gli hotel che hanno un voto di tre stelle o superiore)
@@ -51,7 +52,7 @@ $hotels = [
 
 ];
 
-var_dump($hotels);
+//var_dump($hotels);
 ?>
 
 <!DOCTYPE html>
@@ -61,10 +62,30 @@ var_dump($hotels);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP Hotels</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
 </head>
 
 <body>
 
+    <div class="container my-5 text-center">
+        <h1 class="pb-3">Hotels Table</h1>
+        <table class="m-auto">
+            <tr>
+                <?php foreach ($hotels[0] as $key => $value) : ?>
+                    <th class="border border-dark p-2"><?= ucfirst($key) ?></th>
+                <?php endforeach; ?>
+            </tr>
+            <?php foreach ($hotels as $hotel) : ?>
+                <tr>
+                    <?php foreach ($hotel as $key => $value) : ?>
+                        <td class=" border border-dark p-2"><?= ucfirst($value) ?></td>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
 </body>
 
 </html>
