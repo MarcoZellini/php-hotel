@@ -8,7 +8,9 @@
         
         Bonus:
         Aggiungere un form ad inizio pagina che tramite una richiesta GET permetta di filtrare gli hotel che hanno un parcheggio.
+
         Aggiungere un secondo campo al form che permetta di filtrare gli hotel per voto (es. inserisco 3 ed ottengo tutti gli hotel che hanno un voto di tre stelle o superiore)
+
         NOTA: deve essere possibile utilizzare entrambi i filtri contemporaneamente (es. ottenere una lista con hotel che dispongono di parcheggio e che hanno un voto di tre stelle o superiore) Se non viene specificato nessun filtro, visualizzare come in precedenza tutti gli hotel. 
 */
 
@@ -52,7 +54,7 @@ $hotels = [
 
 ];
 
-//var_dump($hotels);
+//var_dump($_GET);
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +72,14 @@ $hotels = [
 <body>
 
     <div class="container my-5 text-center">
+
+        <form>
+            <input type="checkbox" name="parking" value="true"><label for="">Parcheggio</label>
+            <button type="submit" class="btn btn-primary">Filtra</button>
+        </form>
+
+
+
         <h1 class="pb-3">Hotels Table</h1>
         <table class="m-auto">
             <tr>
@@ -77,10 +87,41 @@ $hotels = [
                     <th class="border border-dark p-2"><?= ucfirst($key) ?></th>
                 <?php endforeach; ?>
             </tr>
-            <?php foreach ($hotels as $hotel) : ?>
+
+            <?php
+
+            $filteredHotels = array_filter($hotels, function ($var) {
+                if ($_GET['parking']) {
+                    return $var['parking'];
+                } else {
+                    return $var;
+                }
+            }, ARRAY_FILTER_USE_BOTH);
+
+            //var_dump($filteredHotels);
+
+            ?>
+
+            <?php foreach ($filteredHotels as $hotel) : ?>
+
                 <tr>
                     <?php foreach ($hotel as $key => $value) : ?>
-                        <td class=" border border-dark p-2"><?= ucfirst($value) ?></td>
+
+                        <td class="border border-dark p-2">
+                            <?php
+
+                            if ($key === 'parking') {
+                                if ($value) {
+                                    echo 'Yes';
+                                } else {
+                                    echo 'No';
+                                }
+                            } else {
+                                echo $value;
+                            }
+
+                            ?>
+                        </td>
                     <?php endforeach; ?>
                 </tr>
             <?php endforeach; ?>
