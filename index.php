@@ -54,7 +54,7 @@ $hotels = [
 
 ];
 
-var_dump($_GET);
+//var_dump($_GET);
 
 ?>
 
@@ -92,9 +92,6 @@ var_dump($_GET);
                     <label class="form-check-label">Parcheggio</label>
                 </div>
             </div>
-
-
-
 
             <div class="buttons">
                 <!-- <button type="reset" class="btn btn-danger">Reset Filtri</button> -->
