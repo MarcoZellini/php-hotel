@@ -54,8 +54,6 @@ $hotels = [
 
 ];
 
-//var_dump($_GET);
-
 ?>
 
 <!DOCTYPE html>
@@ -94,7 +92,7 @@ $hotels = [
             </div>
 
             <div class="buttons">
-                <!-- <button type="reset" class="btn btn-danger">Reset Filtri</button> -->
+                <a href="/PHP/projects/php-hotel/" class="btn btn-danger">Reset Filtri</a>
                 <button type="submit" class="btn btn-primary">Filtra</button>
             </div>
 
